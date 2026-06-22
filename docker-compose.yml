@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: taskmanager
+      POSTGRES_USER: terje
+      POSTGRES_PASSWORD: passord123
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/taskmanager
+      SPRING_DATASOURCE_USERNAME: terje
+      SPRING_DATASOURCE_PASSWORD: passord123
+    depends_on:
+      - db
